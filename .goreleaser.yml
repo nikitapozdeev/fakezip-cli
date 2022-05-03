@@ -51,12 +51,9 @@ changelog:
       - '^conf:'
 
 release:
-  github:
-    owner: Nikita Pozdeev
-    name: fz
   draft: true
   prerelease: auto
-  discussion_category_name: General
+  name_template: "FakeZip CLI {{.Version}}"
   header: |
     ## Features
     List of newly introduced features:

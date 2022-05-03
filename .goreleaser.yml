@@ -9,13 +9,13 @@ builds:
       - linux
       - windows
       - darwin
-    goarch:
+      goarch:
       - amd64
       - arm64
-      - 386
-    main: ./cmd/fz/main.go
-    ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
-    binary: fz
+      - "386"
+      main: ./cmd/fz/main.go
+      ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+      binary: fz
 
 archives:
   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'

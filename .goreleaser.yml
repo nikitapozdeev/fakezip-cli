@@ -1,0 +1,80 @@
+project_name: fz
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+    - goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+      - 386
+    main: ./cmd/fz/main.go
+    ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    binary: fz
+
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
+    replacements:
+      darwin: MasOS
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+
+snapshot:
+  name_template: SNAPSHOT-{{ .Commit }}
+
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'
+
+signs:
+  - cmd: gpg
+    args:
+      - --output
+      - $signature
+      - --detach-sig
+      - $artifact
+    signature: ${artifact}.sig
+    artifacts: none
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^conf:'
+
+release:
+  github:
+    owner: Nikita Pozdeev
+    name: fz
+  draft: true
+  prerelease: auto
+  discussion_category_name: General
+  header: |
+    ## Features
+    List of newly introduced features:
+    - Item 1
+    - Item 2
+    ## Bug fixes
+    List of fixed issues:
+    - Item 1
+    - Item 2
+    ## Code changes
+    - Item 1
+    - Item 2
+
+nfpms:
+  - maintainer: Nikita Pozdeev 
+    description: A small CLI utility for cloning the structure of zip archives.
+    homepage: https://github.com/nikitapozdeev/fakezip-cli
+    license: MIT
+    formats:
+      - deb
+      - rpm

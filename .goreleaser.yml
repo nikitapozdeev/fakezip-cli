@@ -20,11 +20,7 @@ builds:
 archives:
   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
     replacements:
-      darwin: MasOS
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+      darwin: masOS
 
 snapshot:
   name_template: SNAPSHOT-{{ .Commit }}
@@ -53,19 +49,6 @@ changelog:
 release:
   draft: true
   prerelease: auto
-  name_template: "FakeZip CLI {{.Version}}"
-  header: |
-    ## Features
-    List of newly introduced features:
-    - Item 1
-    - Item 2
-    ## Bug fixes
-    List of fixed issues:
-    - Item 1
-    - Item 2
-    ## Code changes
-    - Item 1
-    - Item 2
 
 nfpms:
   - maintainer: Nikita Pozdeev 
